@@ -40,7 +40,7 @@ public class InformationDisplay : MonoBehaviour
         infoTextAngleX.text = "Ángulo X: " + angleXSlider.value;
         infoTextAngleZ.text = "\nÁngulo Z: " + angleZSlider.value;
         infoTextPower.text = "\nPotencia: " + powerSlider.value;
-        infoTextColision.text = (hasCollided ? "\n¡Colisión detectada con el objetivo!" : "");
+        infoTextColision.text = (hasCollided ? "\nColisión detectada con el objetivo" : "");
     }
 
     public void ReportCollision()
