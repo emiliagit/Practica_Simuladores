@@ -23,7 +23,7 @@ public class MainScript : MonoBehaviour {
 	public void Get(){
 
 		// We can add default request headers for all requests
-		RestClient.DefaultRequestHeaders["Authorization"] = "Bearer ...";
+		//RestClient.DefaultRequestHeaders["Authorization"] = "Bearer ...";
 
 		RequestHelper requestOptions = null;
 
