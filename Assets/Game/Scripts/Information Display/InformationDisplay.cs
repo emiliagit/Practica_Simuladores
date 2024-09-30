@@ -1,50 +1,88 @@
-
+using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class InformationDisplay : MonoBehaviour
 {
-    public TextMeshProUGUI infoTextAngleX;
-    public TextMeshProUGUI infoTextAngleZ;
-    public TextMeshProUGUI infoTextPower;
-    public TextMeshProUGUI infoTextColision;
-    public Slider angleXSlider;
-    public Slider angleZSlider;
-    public Slider powerSlider;
+    [SerializeField] private GameObject statsPanel;
+    [SerializeField] private TextMeshProUGUI forceText;
+    [SerializeField] private TextMeshProUGUI xAngleText;
+    [SerializeField] private TextMeshProUGUI yAngleText;
+    [SerializeField] private TextMeshProUGUI impactForceText;
 
-    private bool hasCollided = false;
-    private float lastAngleX;
-    private float lastAngleZ;
+    [SerializeField] private LastShootInfo shotInfo;
+    private float lastXAngle;
+    private float lastYAngle;
 
-    void Start()
+    private CanonController projectileThrow;
+    private FireCanon projectilePower;
+
+    [System.Obsolete]
+    private void Start()
     {
-        // Inicializar los valores de los ángulos
-        lastAngleX = angleXSlider.value;
-        lastAngleZ = angleZSlider.value;
+        projectileThrow = FindObjectOfType<CanonController>();
+        projectilePower = FindObjectOfType<FireCanon>();
+
+        shotInfo.ResetValues();
     }
 
-    void Update()
+    private void Update()
     {
-        // Comprobar si los ángulos han cambiado
-        if (lastAngleX != angleXSlider.value || lastAngleZ != angleZSlider.value)
-        {
-            hasCollided = false;  // Restablecer el estado de colisión
-        }
+        if (Input.GetKeyDown(KeyCode.Tab))
+            ToggleUI();
 
-        // Actualizar los valores de los ángulos
-        lastAngleX = angleXSlider.value;
-        lastAngleZ = angleZSlider.value;
-
-        // Actualizar la información en pantalla
-        infoTextAngleX.text = "Ángulo X: " + angleXSlider.value;
-        infoTextAngleZ.text = "\nÁngulo Z: " + angleZSlider.value;
-        infoTextPower.text = "\nPotencia: " + powerSlider.value;
-        infoTextColision.text = (hasCollided ? "\nColisión detectada con el objetivo" : "");
+        SetForceUI();
+        SetAnglesUI();
     }
 
-    public void ReportCollision()
+    private void ToggleUI()
     {
-        hasCollided = true;
+        if (statsPanel.activeSelf)
+            statsPanel.SetActive(false);
+        else
+            statsPanel.SetActive(true);
+    }
+
+    private void SetForceUI()
+    {
+        forceText.text = $"Force: {string.Format("{0:0.##}", projectilePower.powerSlider.value)}";
+    }
+
+    private void SetAnglesUI()
+    {
+        float xAngleToDisplay = projectileThrow.sliderX.value;
+
+        if (xAngleToDisplay > 180f)
+            xAngleToDisplay -= 360f;
+
+        lastXAngle = xAngleToDisplay;
+        xAngleText.text = $"xAngle: {string.Format("{0:0.##}", xAngleToDisplay)}°";
+
+        float yAngleToDisplay = projectileThrow.sliderY.value;
+
+        if (yAngleToDisplay <= 360f && yAngleToDisplay > 305f)
+            yAngleToDisplay = Mathf.Abs(yAngleToDisplay - 360f);
+        else
+            yAngleToDisplay = -yAngleToDisplay;
+
+        lastYAngle = yAngleToDisplay;
+        yAngleText.text = $"yAngle: {string.Format("{0:0.##}", yAngleToDisplay)}°";
+    }
+
+    public void SetImpactForceUI(float force)
+    {
+        impactForceText.text = $"Impact force: {string.Format("{0:0.##}", force)}";
+
+        SetLastShotInfo(force);
+    }
+
+    private void SetLastShotInfo(float lastImpactForce)
+    {
+        shotInfo.Force = projectilePower.powerSlider.value;
+        shotInfo.X_Angle = lastXAngle;
+        shotInfo.Y_Angle = lastYAngle;
+        shotInfo.ImpactForce = lastImpactForce;
     }
 }

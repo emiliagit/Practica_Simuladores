@@ -4,13 +4,11 @@ using Models;
 using Proyecto26;
 using System.Collections.Generic;
 using UnityEngine.Networking;
-using static System.Net.WebRequestMethods;
 
 public class MainScript : MonoBehaviour {
 
-	private readonly string basePath = "https://database-simuladores-default-rtdb.firebaseio.com/";
-
-    private RequestHelper currentRequest;
+	private readonly string basePath = "https://jsonplaceholder.typicode.com";
+	private RequestHelper currentRequest;
 
 	private void LogMessage(string title, string message) {
 #if UNITY_EDITOR
@@ -23,22 +21,22 @@ public class MainScript : MonoBehaviour {
 	public void Get(){
 
 		// We can add default request headers for all requests
-		//RestClient.DefaultRequestHeaders["Authorization"] = "Bearer ...";
+		RestClient.DefaultRequestHeaders["Authorization"] = "Bearer ...";
 
 		RequestHelper requestOptions = null;
 
-		RestClient.GetArray<Post>(basePath + "/posts.json").Then(res => {
+		RestClient.GetArray<Post>(basePath + "/posts").Then(res => {
 			this.LogMessage("Posts", JsonHelper.ArrayToJsonString<Post>(res, true));
-			return RestClient.GetArray<Todo>(basePath + "/todos.json");
+			return RestClient.GetArray<Todo>(basePath + "/todos");
 		}).Then(res => {
 			this.LogMessage("Todos", JsonHelper.ArrayToJsonString<Todo>(res, true));
-			return RestClient.GetArray<User>(basePath + "/users.json");
+			return RestClient.GetArray<User>(basePath + "/users");
 		}).Then(res => {
 			this.LogMessage("Users", JsonHelper.ArrayToJsonString<User>(res, true));
 
 			// We can add specific options and override default headers for a request
 			requestOptions = new RequestHelper { 
-				Uri = basePath + "/photos.json",
+				Uri = basePath + "/photos",
 				Headers = new Dictionary<string, string> {
 					{ "Authorization", "Other token..." }
 				},
@@ -61,7 +59,7 @@ public class MainScript : MonoBehaviour {
 		RestClient.DefaultRequestParams["param3"] = "My other param";
 
 		currentRequest = new RequestHelper {
-			Uri = basePath + "/posts.json",
+			Uri = basePath + "/posts",
 			Params = new Dictionary<string, string> {
 				{ "param1", "value 1" },
 				{ "param2", "value 2" }
@@ -87,7 +85,7 @@ public class MainScript : MonoBehaviour {
 	public void Put(){
 
 		currentRequest = new RequestHelper {
-			Uri = basePath + "/posts/1.json", 
+			Uri = basePath + "/posts/1", 
 			Body = new Post {
 				title = "foo",
 				body = "bar",
@@ -111,7 +109,7 @@ public class MainScript : MonoBehaviour {
 
 	public void Delete(){
 
-		RestClient.Delete(basePath + "/posts/1.json", (err, res) => {
+		RestClient.Delete(basePath + "/posts/1", (err, res) => {
 			if (err != null){
 				this.LogMessage("Error", err.Message);
 			}

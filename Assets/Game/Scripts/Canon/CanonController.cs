@@ -5,10 +5,9 @@ using UnityEngine.UI;
 
 public class CanonController : MonoBehaviour
 {
-    /*public GameObject cannon;*/ // El cañón que deseas mover
-    public Slider sliderX;    // Slider para controlar la posición en X
-    public Slider sliderY;    // Slider para controlar la posición en Y
-
+   
+    public Slider sliderX;    
+    public Slider sliderY;   
     void Start()
     {
 
