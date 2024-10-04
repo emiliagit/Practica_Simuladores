@@ -12,3 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a9eb647cf531cc4ba4e60e845f8d13a, type: 3}
   m_Name: LastShotInfo
   m_EditorClassIdentifier: 
+  ShotIndex: 1
+  Force: 9
+  X_Angle: 40
+  Y_Angle: 15
+  ImpactForce: 189.31335

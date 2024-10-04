@@ -7,17 +7,15 @@ using UnityEngine.UI;
 public class InformationDisplay : MonoBehaviour
 {
     [SerializeField] private GameObject statsPanel;
-    [SerializeField] private TextMeshProUGUI forceText;
-    [SerializeField] private TextMeshProUGUI xAngleText;
-    [SerializeField] private TextMeshProUGUI yAngleText;
-    [SerializeField] private TextMeshProUGUI impactForceText;
-
     [SerializeField] private LastShootInfo shotInfo;
     private float lastXAngle;
     private float lastYAngle;
 
     private CanonController projectileThrow;
     private FireCanon projectilePower;
+
+    [SerializeField] private GameObject LinePrefab;
+    [SerializeField] private Transform tablePanel;
 
     [System.Obsolete]
     private void Start()
@@ -33,7 +31,6 @@ public class InformationDisplay : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Tab))
             ToggleUI();
 
-        SetForceUI();
         SetAnglesUI();
     }
 
@@ -45,11 +42,7 @@ public class InformationDisplay : MonoBehaviour
             statsPanel.SetActive(true);
     }
 
-    private void SetForceUI()
-    {
-        forceText.text = $"Force: {string.Format("{0:0.##}", projectilePower.powerSlider.value)}";
-    }
-
+   
     private void SetAnglesUI()
     {
         float xAngleToDisplay = projectileThrow.sliderX.value;
@@ -58,8 +51,7 @@ public class InformationDisplay : MonoBehaviour
             xAngleToDisplay -= 360f;
 
         lastXAngle = xAngleToDisplay;
-        xAngleText.text = $"xAngle: {string.Format("{0:0.##}", xAngleToDisplay)}°";
-
+       
         float yAngleToDisplay = projectileThrow.sliderY.value;
 
         if (yAngleToDisplay <= 360f && yAngleToDisplay > 305f)
@@ -68,13 +60,13 @@ public class InformationDisplay : MonoBehaviour
             yAngleToDisplay = -yAngleToDisplay;
 
         lastYAngle = yAngleToDisplay;
-        yAngleText.text = $"yAngle: {string.Format("{0:0.##}", yAngleToDisplay)}°";
+       
     }
 
     public void SetImpactForceUI(float force)
     {
-        impactForceText.text = $"Impact force: {string.Format("{0:0.##}", force)}";
-
+        
+        Debug.Log("force");
         SetLastShotInfo(force);
     }
 
@@ -84,5 +76,16 @@ public class InformationDisplay : MonoBehaviour
         shotInfo.X_Angle = lastXAngle;
         shotInfo.Y_Angle = lastYAngle;
         shotInfo.ImpactForce = lastImpactForce;
+    }
+    public void LoadTableData()
+    {
+        GameObject newLine = Instantiate(LinePrefab, tablePanel.transform);
+
+        TextMeshProUGUI[] texts = newLine.GetComponentsInChildren<TextMeshProUGUI>();
+
+        texts[0].text = shotInfo.X_Angle.ToString();
+        texts[1].text = shotInfo.Y_Angle.ToString();
+        texts[2].text = shotInfo.Force.ToString();
+        texts[3].text = shotInfo.ImpactForce.ToString();
     }
 }

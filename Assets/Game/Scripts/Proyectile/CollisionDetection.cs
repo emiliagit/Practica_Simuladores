@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CollisionDetection : MonoBehaviour
 {
-     private InformationDisplay statsUI;
+    private InformationDisplay statsUI;
     private bool collisioned;
 
     [System.Obsolete]
@@ -27,6 +27,8 @@ public class CollisionDetection : MonoBehaviour
         float forceVectorMod = Mathf.Sqrt(Mathf.Pow(xForce, 2) + Mathf.Pow(yForce, 2) + Mathf.Pow(zForce, 2));
 
         statsUI.SetImpactForceUI(forceVectorMod);
+        statsUI.LoadTableData();
+        
 
         this.enabled = false;
     }
