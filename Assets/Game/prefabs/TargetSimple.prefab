@@ -145,7 +145,7 @@ GameObject:
   - component: {fileID: 1072327999716431170}
   m_Layer: 0
   m_Name: TargetSimple
-  m_TagString: Untagged
+  m_TagString: Target
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -160,8 +160,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 3.49, y: 3.49, z: 3.49}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1822697475145694280}
   - {fileID: 6419195703077620713}
@@ -179,9 +179,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 077e0c81142f3a442b77ce53f46fdf74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minSpeed: 2
-  maxSpeed: 4
-  desactivatePosition: 0
+  speed: 3
+  desactivatePosition: 50
 --- !u!1001 &3587642981225301669
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -193,22 +192,6 @@ PrefabInstance:
     - target: {fileID: 2222810237080045822, guid: a951739d1856d274a81af8aad8778fb0, type: 3}
       propertyPath: m_Name
       value: Target vol 3 Variant
-      objectReference: {fileID: 0}
-    - target: {fileID: 2222810237080045822, guid: a951739d1856d274a81af8aad8778fb0, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2918996641410513645, guid: a951739d1856d274a81af8aad8778fb0, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 43.340088
-      objectReference: {fileID: 0}
-    - target: {fileID: 2918996641410513645, guid: a951739d1856d274a81af8aad8778fb0, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 43.34001
-      objectReference: {fileID: 0}
-    - target: {fileID: 2918996641410513645, guid: a951739d1856d274a81af8aad8778fb0, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 43.34001
       objectReference: {fileID: 0}
     - target: {fileID: 2918996641410513645, guid: a951739d1856d274a81af8aad8778fb0, type: 3}
       propertyPath: m_LocalPosition.x

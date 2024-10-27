@@ -5,13 +5,9 @@ using UnityEngine.UI;
 
 public class CanonController : MonoBehaviour
 {
-   
     public Slider sliderX;    
     public Slider sliderY;   
-    void Start()
-    {
-
-    }
+   
     private void Update()
     {
         rotation();

@@ -4,15 +4,8 @@ using UnityEngine;
 
 public class TargetMovement : MonoBehaviour
 {
-    public float minSpeed; 
-    public float maxSpeed; 
-    private float speed;
+    public float speed;
     public float desactivatePosition;
-
-    void OnEnable()
-    {
-        speed = Random.Range(minSpeed, maxSpeed);
-    }
 
     void Update()
     {

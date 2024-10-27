@@ -4,9 +4,8 @@ using UnityEngine;
 
 public class SpawnerTarget : MonoBehaviour
 {
-    public Transform spawnPoint;
+    public List<Transform> spawnPoints; 
     public float generationInterval;
-    public float heightVariation; 
 
     private float nextSpawn;
 
@@ -31,9 +30,8 @@ public class SpawnerTarget : MonoBehaviour
         int obstacleType = Random.Range(0, ObjectPooling.instance.objectPrefabs.Length);
         GameObject obstacle = ObjectPooling.instance.GetObject(obstacleType);
 
-        // Ajustar la altura de spawn de manera aleatoria
-        float randomHeight = Random.Range(-heightVariation, heightVariation);
-        Vector3 spawnPosition = new Vector3(spawnPoint.position.x, spawnPoint.position.y + randomHeight, spawnPoint.position.z);
+        int randomIndex = Random.Range(0, spawnPoints.Count);
+        Vector3 spawnPosition = spawnPoints[randomIndex].position;
 
         obstacle.transform.position = spawnPosition;
     }
